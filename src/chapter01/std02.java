@@ -34,6 +34,8 @@ public class std02 {
     * 　・クラス内で定義した、staticメンバはインスタンスメンバに直接アクセスは不可能
     * 　　アクセスする場合は一度インスタンス化すれば可能となる
     * 　
+    * ## nullに対するstaticメンバ呼び出し
+    * 　 88行目以降に記載
     * */
 }
 
@@ -81,4 +83,27 @@ class std01B {
         System.out.println("this name is : " + ta2.name); //これは非staticなので参照不可
 
     }
+}
+
+// nullのときの説明
+class std01C {
+    static String staticValue = "static value";
+    String instanceValue = "instance value";
+
+    public void textValue() {
+        std01C s = null;
+        System.out.println(staticValue); // static value
+        System.out.println(instanceValue); // NullPointerException
+    }
+     /*
+         上記の出力結果：
+         static value
+         Exception in thread "main" java.lang.NullPointerException
+
+         ■説明
+         インスタンスメンバとstaticメンバの保持領域は別物でstaticメンバは
+         クラスが読み込まれさえすれば、nullであってもstaticの領域から
+         呼び出せるのでNullPointerExceptionにはならないため上記のような結果となる
+     * */
+
 }
